@@ -36,6 +36,14 @@ This project predicts house prices based on features like:
 - **Matplotlib & Seaborn**: Data visualization
 - **Plotly**: Interactive visualizations
 
+##  Screenshots
+
+![Screenshot 1](screenshots/1.png)
+
+![Screenshot 2](screenshots/2.png)
+
+![Screenshot 3](screenshots/3.png)
+
 
 ## Model Details
 
