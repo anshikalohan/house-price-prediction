@@ -26,9 +26,8 @@ st.write("This app predicts house prices using a Linear Regression model trained
 # Sidebar Inputs
 st.sidebar.header("Input House Features")
 
-if feature_info:
-    # User inputs
-    inputs = {
+
+inputs = {
         'MedInc': st.sidebar.slider("Median Income (in $10k)", 0.5, 15.0, 5.0, 0.1),
         'HouseAge': st.sidebar.slider("House Age (years)", 1, 50, 20),
         'AveRooms': st.sidebar.slider("Average Rooms", 3.0, 12.0, 6.0, 0.1),
@@ -40,12 +39,12 @@ if feature_info:
     }
 
     # Derived features
-    inputs['rooms_per_person'] = inputs['AveRooms'] / inputs['AveOccup']
-    inputs['bedrooms_per_room'] = inputs['AveBedrms'] / inputs['AveRooms']
-    inputs['population_density'] = inputs['Population'] / (inputs['AveOccup'] * 100)
+inputs['rooms_per_person'] = inputs['AveRooms'] / inputs['AveOccup']
+inputs['bedrooms_per_room'] = inputs['AveBedrms'] / inputs['AveRooms']
+inputs['population_density'] = inputs['Population'] / (inputs['AveOccup'] * 100)
 
     # Prediction
-    if st.sidebar.button(" Predict House Price"):
+if st.sidebar.button(" Predict House Price"):
         if model and scaler:
             input_df = pd.DataFrame([inputs])
             input_scaled = scaler.transform(input_df[feature_info["feature_names"]])
