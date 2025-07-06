@@ -38,7 +38,7 @@ This project predicts house prices based on features like:
 
 ##  Screenshots
 
-![Screenshot 1](screenshots:/1.png)
+![Screenshot 1](house-price-prediction/screenshots:/1.png)
 
 ![Screenshot 2](screenshots:/2.png)
 
