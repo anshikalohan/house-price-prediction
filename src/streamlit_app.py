@@ -38,50 +38,50 @@ inputs = {
         'Longitude': st.sidebar.slider("Longitude", -125.0, -114.0, -118.0, 0.1),
     }
 
-    # Derived features
+# Derived features
 inputs['rooms_per_person'] = inputs['AveRooms'] / inputs['AveOccup']
 inputs['bedrooms_per_room'] = inputs['AveBedrms'] / inputs['AveRooms']
 inputs['population_density'] = inputs['Population'] / (inputs['AveOccup'] * 100)
 
-    # Prediction
+# Prediction
 if st.sidebar.button(" Predict House Price"):
-        if model and scaler:
-            input_df = pd.DataFrame([inputs])
-            input_scaled = scaler.transform(input_df[feature_info["feature_names"]])
-            prediction = model.predict(input_scaled)[0]
+    if model and scaler:
+        input_df = pd.DataFrame([inputs])
+        input_scaled = scaler.transform(input_df[feature_info["feature_names"]])
+        prediction = model.predict(input_scaled)[0]
 
-            st.subheader(" Predicted House Price")
-            st.success(f"Estimated Price: **${prediction * 100:.0f}k**")
+        st.subheader(" Predicted House Price")
+        st.success(f"Estimated Price: **${prediction * 100:.0f}k**")
 
-            # Summary
-            st.subheader(" Input Summary")
-            col1, col2 = st.columns(2)
+        # Summary
+        st.subheader(" Input Summary")
+        col1, col2 = st.columns(2)
 
-            with col1:
-                st.write(f"**Median Income**: ${inputs['MedInc'] * 10:.0f}k")
-                st.write(f"**House Age**: {inputs['HouseAge']} years")
-                st.write(f"**Avg. Rooms**: {inputs['AveRooms']}")
-                st.write(f"**Avg. Bedrooms**: {inputs['AveBedrms']}")
-                st.write(f"**Population**: {inputs['Population']}")
-                st.write(f"**Avg. Occupancy**: {inputs['AveOccup']}")
+        with col1:
+            st.write(f"**Median Income**: ${inputs['MedInc'] * 10:.0f}k")
+            st.write(f"**House Age**: {inputs['HouseAge']} years")
+            st.write(f"**Avg. Rooms**: {inputs['AveRooms']}")
+            st.write(f"**Avg. Bedrooms**: {inputs['AveBedrms']}")
+            st.write(f"**Population**: {inputs['Population']}")
+            st.write(f"**Avg. Occupancy**: {inputs['AveOccup']}")
 
-            with col2:
-                st.write(f"**Latitude**: {inputs['Latitude']}")
-                st.write(f"**Longitude**: {inputs['Longitude']}")
-                st.write(f"**Rooms per Person**: {inputs['rooms_per_person']:.2f}")
-                st.write(f"**Bedrooms per Room**: {inputs['bedrooms_per_room']:.2f}")
-                st.write(f"**Population Density**: {inputs['population_density']:.2f}")
+        with col2:
+            st.write(f"**Latitude**: {inputs['Latitude']}")
+            st.write(f"**Longitude**: {inputs['Longitude']}")
+            st.write(f"**Rooms per Person**: {inputs['rooms_per_person']:.2f}")
+            st.write(f"**Bedrooms per Room**: {inputs['bedrooms_per_room']:.2f}")
+            st.write(f"**Population Density**: {inputs['population_density']:.2f}")
 
-            # Graph: Comparison with CA average
-            st.subheader(" Price Comparison")
+        # Graph: Comparison with CA average
+        st.subheader(" Price Comparison")
 
-            comparison_data = pd.DataFrame({
-                "Category": ["Your House", "CA Average", "CA Median"],
-                "Price (in $1000s)": [prediction * 100, 350, 280],
-                "Type": ["Prediction", "Reference", "Reference"]
+        comparison_data = pd.DataFrame({
+            "Category": ["Your House", "CA Average", "CA Median"],
+            "Price (in $1000s)": [prediction * 100, 350, 280],
+            "Type": ["Prediction", "Reference", "Reference"]
             })
 
-            fig = px.bar(
+        fig = px.bar(
                 comparison_data,
                 x="Category",
                 y="Price (in $1000s)",
@@ -89,12 +89,12 @@ if st.sidebar.button(" Predict House Price"):
                 color_discrete_map={"Prediction": "#1f77b4", "Reference": "#ff7f0e"},
                 title="Predicted vs Average House Prices"
             )
-            st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True)
 
             # Feature Importance
-            st.subheader("🔍 What Affects House Prices?")
+        st.subheader("🔍 What Affects House Prices?")
 
-            importance_data = pd.DataFrame({
+        importance_data = pd.DataFrame({
                 "Feature": ["Median Income", "Latitude/Longitude", "House Age", "Rooms", "Population Density"],
                 "Impact": ["Very High", "High", "Medium", "Medium", "Low"],
                 "Why it matters": [
@@ -106,7 +106,7 @@ if st.sidebar.button(" Predict House Price"):
                 ]
             })
 
-            st.dataframe(importance_data, use_container_width=True)
+        st.dataframe(importance_data, use_container_width=True)
 
 # About the model
 st.markdown("---")
